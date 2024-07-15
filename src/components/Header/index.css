@@ -1,0 +1,31 @@
+/* Write your CSS code here */
+.logout-button {
+  background-color: blue;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  border-width: 0px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-items-container {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-around; */
+  align-items: center;
+}
+
+.logo {
+  height: 30%;
+  width: 50%;
+}
+
+.nav-item {
+  margin-right: 20px;
+}

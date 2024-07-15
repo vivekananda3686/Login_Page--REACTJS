@@ -1,0 +1,29 @@
+/* Write your CSS code here */
+
+.logo {
+  height: 30%;
+  width: 50%;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 50px;
+}
+
+.login-image {
+  height: 60%;
+  width: 80%;
+}
+
+.login-card {
+  background-color: #ffffff;
+  box-shadow: 10px 10px 10px 5px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+
+.error-para {
+  color: red;
+}
