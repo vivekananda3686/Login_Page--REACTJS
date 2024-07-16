@@ -6,7 +6,7 @@ class LoginForm extends Component {
   state = {
     username: '',
     password: '',
-    user: false,
+    errorMessage:"",
   }
 
   onChangeUsername = event => {
@@ -23,81 +23,59 @@ class LoginForm extends Component {
 
   onSubmitSuccess = () => {
     const {history} = this.props
-    history.replace("/")
+    history.replace('/')
   }
 
   onSubmitForm = async event => {
     event.preventDefault()
     const {username, password} = this.state
-    //if (username === 'rahul' && password === 'rahul@2021') {
-      const userDetails = {username, password}
-      const url = 'https://apis.ccbp.in/login'
-      const options = {
-        method: 'POST',
-        body: JSON.stringify(userDetails),
-      }
-      const response = await fetch(url, options)
-      console.log(response)
-      const data = await response.json()
-      console.log(data)
-      this.setState({
-        username: '',
-        password: '',
-        user: 'true',
-      })
-      if (response.ok === true) {
-        this.onSubmitSuccess()
-      }
-      else{
-        console.log("Erorororrororo")
-      //}
-      }
-      if(username="")
-      {
-        this.setState({
-        user: true,
-        username: '',
-        password: '',
-      })
-        
-      }
-       else if(username==="")
-      {
-         this.setState({
-        user: true,
-        username: '',
-        password: '',
-      })
-      }
-    else if(password==="")
-      {
-         this.setState({
-        user: true,
-        username: '',
-        password: '',
-      })
-      }
-      else{
-        this.setState({
-        user: true,
-        username: '',
-        password: '',
-      })
-      }
-  }
 
-  errorDisplay = () => {
-    const {user} = this.state
-    console.log(user)
-    if (user === false) {
-      return <p></p>
-    } else {
-      return <p className="error-para">*Username and Password didn't match</p>
+
+    if (username === '' && password === '') {
+      this.setState({
+        errorMessage: '*Username and Password cannot be empty',
+      });
+      return;
     }
-  }
+
+    if (username === '') {
+      this.setState({
+        errorMessage: '*Username cannot be empty',
+        password:"",
+      });
+      return;
+    }
+
+    if (password === '') {
+      this.setState({
+        errorMessage: '*Password cannot be empty',
+        username:"",
+      });
+      return;
+    }
+
+
+    const userDetails = { username, password };
+    const url = 'https://apis.ccbp.in/login';
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(userDetails),
+    };
+
+    const response = await fetch(url, options);
+    const data = await response.json();
+
+    if (response.ok === true) {
+      this.onSubmitSuccess();
+    } else {
+      this.setState({
+        errorMessage: '*Username and Password didn't match',
+      });
+    }
+  };
 
   render() {
-    const {username, password} = this.state
+    const {username, password,errorMessage} = this.state
     return (
       <div className="main-container">
         <div>
@@ -134,7 +112,7 @@ class LoginForm extends Component {
             />
             <button type="submit">Login</button>
           </form>
-          {this.errorDisplay()}
+          {errorMessage && <p className="error-para">{errorMessage}</p>}
         </div>
       </div>
     )
